@@ -1,0 +1,73 @@
+{
+  "id": "WH-7HU11115YC1251233-59U27666F3432654P",
+  "links": [
+    {
+      "rel": "self",
+      "href": "https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-7HU11115YC1251233-59U27666F3432654P",
+      "method": "GET"
+    },
+    {
+      "rel": "resend",
+      "href": "https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-7HU11115YC1251233-59U27666F3432654P/resend",
+      "method": "POST"
+    }
+  ],
+  "summary": "An order has been approved by buyer",
+  "resource": {
+    "id": "17F09989G0765703D",
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://api.sandbox.paypal.com/v2/checkout/orders/17F09989G0765703D",
+        "method": "GET"
+      },
+      {
+        "rel": "update",
+        "href": "https://api.sandbox.paypal.com/v2/checkout/orders/17F09989G0765703D",
+        "method": "PATCH"
+      },
+      {
+        "rel": "capture",
+        "href": "https://api.sandbox.paypal.com/v2/checkout/orders/17F09989G0765703D/capture",
+        "method": "POST"
+      }
+    ],
+    "payer": {
+      "name": {
+        "surname": "Doe",
+        "given_name": "John"
+      },
+      "address": {
+        "country_code": "US"
+      },
+      "payer_id": "E777GTRSBBV9C",
+      "email_address": "sb-vxgj48302469@personal.example.com"
+    },
+    "intent": "CAPTURE",
+    "status": "APPROVED",
+    "create_time": "2023-04-07T16:03:14Z",
+    "payment_source": {
+      "paypal": []
+    },
+    "purchase_units": [
+      {
+        "payee": {
+          "merchant_id": "7DL65E7KWW4E4",
+          "email_address": "sb-kafc08307915@business.example.com"
+        },
+        "amount": {
+          "value": "87.15",
+          "currency_code": "USD"
+        },
+        "custom_id": "16",
+        "description": "shipping demo",
+        "reference_id": "default"
+      }
+    ]
+  },
+  "event_type": "CHECKOUT.ORDER.APPROVED",
+  "create_time": "2023-04-07T16:03:27.215Z",
+  "event_version": "1.0",
+  "resource_type": "checkout-order",
+  "resource_version": "2.0"
+}

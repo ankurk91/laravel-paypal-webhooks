@@ -1,0 +1,58 @@
+{
+  "name": "ankurk91/laravel-paypal-webhooks",
+  "description": "Handle PayPal webhooks in Laravel php framework",
+  "keywords": [
+    "laravel",
+    "paypal",
+    "event",
+    "webhook"
+  ],
+  "homepage": "https://github.com/ankurk91/laravel-paypal-webhooks",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ankurk91",
+      "homepage": "https://ankurk91.github.io",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "ext-openssl": "*",
+    "guzzlehttp/guzzle": "^7.5",
+    "illuminate/http": "^9.34 || ^10.0",
+    "illuminate/support": "^9.34 || ^10.0",
+    "spatie/laravel-webhook-client": "^3.1.7"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^7.12 || ^8.0",
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ankurk91\\PayPalWebhooks\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Ankurk91\\PayPalWebhooks\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "preferred-install": "dist"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test:coverage": "vendor/bin/phpunit --coverage-clover=coverage.xml"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ankurk91\\PayPalWebhooks\\PayPalWebhooksServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

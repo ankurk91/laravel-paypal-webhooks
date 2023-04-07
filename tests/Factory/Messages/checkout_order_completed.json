@@ -1,0 +1,76 @@
+{
+  "id": "WH-ABC123",
+  "event_type": "CHECKOUT.ORDER.COMPLETED",
+  "create_time": "2023-04-08T12:00:00.000Z",
+  "resource_type": "checkout-order",
+  "resource_version": "2.0",
+  "resource": {
+    "id": "O-ABC123",
+    "status": "COMPLETED",
+    "purchase_units": [
+      {
+        "reference_id": "PU-ABC123",
+        "amount": {
+          "value": "100.00",
+          "currency_code": "USD"
+        },
+        "payee": {
+          "email_address": "seller@example.com",
+          "merchant_id": "MID-ABC123"
+        },
+        "shipping": {
+          "address": {
+            "address_line_1": "123 Main St",
+            "admin_area_2": "San Jose",
+            "admin_area_1": "CA",
+            "postal_code": "95131",
+            "country_code": "US"
+          }
+        },
+        "payments": {
+          "captures": [
+            {
+              "id": "6U9420896R1333130",
+              "status": "COMPLETED",
+              "amount": {
+                "value": "100.00",
+                "currency_code": "USD"
+              },
+              "seller_protection": {
+                "status": "ELIGIBLE",
+                "dispute_categories": [
+                  "ITEM_NOT_RECEIVED",
+                  "UNAUTHORIZED_TRANSACTION"
+                ]
+              },
+              "final_capture": true,
+              "create_time": "2023-04-08T12:00:00.000Z",
+              "update_time": "2023-04-08T12:01:00.000Z"
+            }
+          ]
+        }
+      }
+    ],
+    "create_time": "2023-04-08T12:00:00.000Z",
+    "update_time": "2023-04-08T12:01:00.000Z",
+    "links": [
+      {
+        "href": "https://api.paypal.com/checkout/v2/orders/O-ABC123",
+        "rel": "self",
+        "method": "GET"
+      }
+    ]
+  },
+  "links": [
+    {
+      "href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-ABC123",
+      "rel": "self",
+      "method": "GET"
+    },
+    {
+      "href": "https://api.paypal.com/v1/notifications/webhooks-events/WH-ABC123/resend",
+      "rel": "resend",
+      "method": "POST"
+    }
+  ]
+}
