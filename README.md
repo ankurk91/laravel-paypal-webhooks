@@ -1,4 +1,4 @@
-# PayPal Webhook Client for Laravel
+# PayPal Webhooks Client for Laravel
 
 [![Packagist](https://badgen.net/packagist/v/ankurk91/laravel-paypal-webhooks)](https://packagist.org/packages/ankurk91/laravel-paypal-webhooks)
 [![GitHub-tag](https://badgen.net/github/tag/ankurk91/laravel-paypal-webhooks)](https://github.com/ankurk91/laravel-paypal-webhooks/tags)
@@ -56,18 +56,34 @@ It is recommended to set up a queue worker to precess the incoming webhooks.
 
 ## Setup PayPal account
 
-Visit PayPal developer [dashboard](https://developer.paypal.com/dashboard)
-and create a new Webhook.
-Enter your webhook URL and choose events to be tracked.
-You will see a Webhook ID upon save.
-
-Specify this id in your `.env` like
+* Login to PayPal developer [dashboard](https://developer.paypal.com/dashboard)
+* Create a new Application (recommended)
+* Create a new Webhook under the newly created application
+* Enter your webhook URL. :bulb: You can use [ngrok](https://ngrok.com/) for local development
+* Choose events to be tracked (Don't select all), for example:
+    * Checkout order approved
+* You will see a Webhook ID upon saving
+* Specify this webhook ID in your `.env` like
 
 ```dotenv
 PAYPAL_WEBHOOK_ID=6U272633NC098611R
 ```
 
-This ID will be used to verify the incoming request Signature.
+This webhook ID will be used to verify the incoming request Signature.
+
+### Troubleshoot
+
+When using ngrok during development, you must update your `APP_URL` to match with ngrok vanity URL, for example:
+
+```dotenv
+APP_URL=https://af59-111-93-41-42.ngrok-free.app
+```
+
+You must verify that your webhook URL is publicly accessible by visiting the URL on terminal
+
+```bash
+curl -X POST https://af59-111-93-41-42.ngrok-free.app/webhooks/paypal
+```
 
 ## Usage
 
@@ -106,8 +122,8 @@ class CheckoutOrderApprovedJob implements ShouldQueue
 ```
 
 After having created your job you must register it at the `jobs` array in the `config/paypal-webhooks.php` config file.
-The
-key should be lowercase and dots should be replaced by `_`. The value should be a fully qualified classname.
+The key must be in lowercase and dots must be replaced by `_`.
+The value must be a fully qualified classname.
 
 ```php
 <?php
@@ -122,11 +138,10 @@ return [
 ### 2 - Handling webhook requests using events and listeners
 
 Instead of queueing jobs to perform some work when a webhook request comes in, you can opt to listen to the events this
-package will fire. Whenever a valid request hits your app, the package will fire
-a `paypal-webhooks::<name-of-the-event>`
-event.
+package will fire. Whenever a matching request hits your app, the package will fire
+a `paypal-webhooks::<name-of-the-event>` event.
 
-The payload of the events will be the instance of WebhookCall that was created for the incoming request.
+The payload of the events will be the instance of `WebhookCall` that was created for the incoming request.
 
 You can listen for such event by registering the listener in your `EventServiceProvider` class.
 
@@ -164,6 +179,7 @@ class PaymentOrderCancelledListener implements ShouldQueue
 Update your `app/Console/Kernel.php` file like:
 
 ```php
+use Illuminate\Database\Console\PruneCommand;
 use Spatie\WebhookClient\Models\WebhookCall;
 
 $schedule->command(PruneCommand::class, [
@@ -174,7 +190,7 @@ $schedule->command(PruneCommand::class, [
         ->description('Prune webhook_calls.');
 ```
 
-This will delete records older than 30 days, you can modify this duration by publishing this config file.
+This will delete records older than `30` days, you can modify this duration by publishing this config file.
 
 ```bash
 php artisan vendor:publish --provider="Spatie\WebhookClient\WebhookClientServiceProvider" --tag="webhook-client-config"
