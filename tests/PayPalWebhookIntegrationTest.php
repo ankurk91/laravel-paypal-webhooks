@@ -32,8 +32,7 @@ class PayPalWebhookIntegrationTest extends TestCase
         Event::fake();
         Bus::fake(TestHandlerJob::class);
 
-        $messageFactory = new PayPalWebhookFactory();
-        $payload = $messageFactory->getCheckoutOrderApproved();
+        $payload = PayPalWebhookFactory::checkoutOrderApproved();
 
         $this->postJson('/webhooks/paypal', $payload)
             ->assertSuccessful();
@@ -57,8 +56,7 @@ class PayPalWebhookIntegrationTest extends TestCase
     {
         Event::fake();
 
-        $messageFactory = new PayPalWebhookFactory();
-        $payload = $messageFactory->getCheckoutOrderCompleted();
+        $payload = PayPalWebhookFactory::checkoutOrderCompleted();
 
         $this->postJson('/webhooks/paypal', $payload)
             ->assertSuccessful();
@@ -78,8 +76,7 @@ class PayPalWebhookIntegrationTest extends TestCase
 
     public function test_it_process_same_webhook_only_once()
     {
-        $messageFactory = new PayPalWebhookFactory();
-        $payload = $messageFactory->getCheckoutOrderApproved();
+        $payload = PayPalWebhookFactory::checkoutOrderApproved();
 
         $this->postJson('/webhooks/paypal', $payload)
             ->assertSuccessful();

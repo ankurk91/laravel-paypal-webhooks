@@ -5,13 +5,13 @@ namespace Ankurk91\PayPalWebhooks\Tests\Factory;
 
 class PayPalWebhookFactory
 {
-    public function getCheckoutOrderApproved(): array
+    public static function checkoutOrderApproved(): array
     {
         $body = file_get_contents(__DIR__.'/Messages/checkout_order_approved.json');
         return json_decode($body, true);
     }
 
-    public function getCheckoutOrderCompleted(): array
+    public static function checkoutOrderCompleted(): array
     {
         $body = file_get_contents(__DIR__.'/Messages/checkout_order_completed.json');
         return json_decode($body, true);

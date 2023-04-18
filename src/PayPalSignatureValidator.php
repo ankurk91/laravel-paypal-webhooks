@@ -40,7 +40,7 @@ class PayPalSignatureValidator implements SignatureValidator
                     ]),
                     signature: base64_decode($request->header('PAYPAL-TRANSMISSION-SIG')),
                     public_key: openssl_pkey_get_public($this->downloadCert($request->header('PAYPAL-CERT-URL'))),
-                    algorithm: 'sha256WithRSAEncryption'
+                    algorithm: OPENSSL_ALGO_SHA256
                 ) === 1;
         } catch (RequestException $e) {
             throw $e;
