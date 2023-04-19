@@ -130,7 +130,7 @@ The value must be a fully qualified classname.
 
 return [
      'jobs' => [
-          'checkout_order_approved' => \App\Jobs\Webhook\PayPal\CheckoutOrderApprovedJob::clas,
+          'checkout_order_approved' => \App\Jobs\Webhook\PayPal\CheckoutOrderApprovedJob::class,
      ],
 ];
 ```

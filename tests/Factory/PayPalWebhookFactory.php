@@ -7,13 +7,17 @@ class PayPalWebhookFactory
 {
     public static function checkoutOrderApproved(): array
     {
-        $body = file_get_contents(__DIR__.'/Messages/checkout_order_approved.json');
-        return json_decode($body, true);
+        return self::readFile('checkout_order_approved.json');
     }
 
     public static function checkoutOrderCompleted(): array
     {
-        $body = file_get_contents(__DIR__.'/Messages/checkout_order_completed.json');
+        return self::readFile('checkout_order_completed.json');
+    }
+
+    protected static function readFile(string $name): array
+    {
+        $body = file_get_contents(__DIR__.'/Messages/'.$name);
         return json_decode($body, true);
     }
 }
