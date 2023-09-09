@@ -19,6 +19,7 @@ class PayPalWebhookCall extends WebhookCall
 
         return self::create([
             'name' => $config->name,
+            'exception' => null,
             'url' => $request->path(),
             'headers' => $headers,
             'payload' => self::makePayload($request),
